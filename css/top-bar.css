@@ -1,0 +1,52 @@
+/* start style top bar */
+.top-bar{
+    background-color:var(--white-color-Dark);
+    padding:.5rem 0;
+    color: var(--primary-color-text-Dark);
+}
+
+.top-bar__content{
+    display: flex;
+    justify-content:space-between;
+    padding: 0 1rem;
+}
+
+.top-bar__right{
+    display: flex;
+}
+
+.top-bar__menu{
+    display: flex;
+    position: relative;
+}
+
+.top-bar__item{
+    padding: 0 1rem;
+}
+
+.top-bar__item{
+    font-size: 1.5rem;
+    transition: all 400ms;
+}
+
+.top-bar__item:hover{
+    color: var(--primary-color-green-Dark);
+    cursor: pointer;
+}
+
+.top-bar__link-menu:hover{
+    color: var(--primary-color-text-Dark);
+}
+
+.top-bar__email{
+    padding: .5rem;
+}
+
+.top-bar__email-text{
+    color: var(--primary-color-text-Dark);
+}
+.top-bar__email-icon{
+    color: var(--primary-color-green-light);
+}
+
+/* Finish style top bar */

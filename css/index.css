@@ -204,7 +204,7 @@ i{
     display: flex;
     justify-content:space-between;
     align-items: center;
-    margin: 0 3.5rem;
+    margin: 0 3rem;
 }
 
 .landing__content{
@@ -277,3 +277,142 @@ i{
 }
 
 /* Finish style landing */
+
+/* Start Lateset Courses */
+
+.courses {
+    margin: 4rem 0;
+  }
+  
+  .courses-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .courses-header__right {
+    display: flex;
+    flex-direction: column;
+    font-size: 2rem;
+    color: var(--primary-color-text-Dark);
+  }
+  
+  .courses-header__text {
+    color: var(--primary-color-green-Dark);
+    font-size: 1.5rem;
+  }
+  
+  .courses-header__link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--white-color-light);
+    background-color: var(--primary-color-green-Dark);
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    grid-gap:1rem;
+    transition: all 400ms ease;
+    border: 3px solid var(--primary-color-green-Dark);
+  }
+  
+  .courses-header__link:hover {
+    border: 3px solid var(--primary-color-green-Dark);
+    background-color: var(--white-color-light);
+  }
+  
+  .courses-header__icon {
+    font-size: 1.5rem;
+  }
+  
+
+.course-box{
+    margin: 2rem .7rem;
+    transition: all 400ms ease;
+    box-shadow: 0px 0px 8px rgba(0,0,0,.3);
+    border-radius: 1rem;
+    background-color: rgba(238, 238, 238, .2);
+}
+
+.course-box:hover{
+    transform: translateY(-.6rem);
+}
+  
+.course-box__img{
+    width: 100%;
+    border-radius: 1rem 1rem 0 0;
+}
+
+.course-box__main{
+    padding: 1rem 1.5rem;
+}
+
+.course-box__title{
+    display: block;
+    font-weight: bold;
+}
+
+.course-box__rating-teacher,
+.course-box__status{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: .8rem 0;
+}
+
+.course-box__start{
+    margin: 0 -.2rem;
+}
+
+.course-box__teacher-icon,
+.course-box__users-icon{
+    color: var(--primary-color-green-light);
+}
+
+.course-box__footer{
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-top: 1px solid var(--white-color-Dark);
+}
+
+.course-box__footer-link{
+    color: var(--primary-color-green-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    grid-gap: .8rem;
+}
+  
+/* Finish Latest Courses */
+
+ /* Start helper classes */
+
+ .title{
+    position: relative;
+    line-height: 1.7;
+  }
+
+  .title::before{
+    content: "";
+    right: -1rem;
+    background-color: var(--primary-color-green-Dark);
+    height: 5.4rem;
+    border-radius: 5rem;
+    position: absolute;
+    width: .3rem;
+    transform: rotate(8deg);
+  }
+
+  .title::after{
+    content: "";
+    position: absolute;
+    width: 100%;
+    background: linear-gradient(45deg, transparent, rgba(118, 136, 91, .4));
+    height: 60%;
+    right: -.5rem;
+    bottom: 0;
+    max-width: 250px;
+  }
+
+    /* Finish helper classes */

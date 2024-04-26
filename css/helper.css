@@ -1,0 +1,32 @@
+/* Start helper classes */
+
+.title{
+    position: relative;
+    line-height: 1.7;
+    font-size: 2rem;
+    color: var(--primary-color-text-Dark);
+  }
+
+  .title::before{
+    content: "";
+    right: -1rem;
+    background-color: var(--primary-color-green-Dark);
+    height: 5.4rem;
+    border-radius: 5rem;
+    position: absolute;
+    width: .3rem;
+    transform: rotate(8deg);
+  }
+
+  .title::after{
+    content: "";
+    position: absolute;
+    width: 100%;
+    background: linear-gradient(45deg, transparent, rgba(118, 136, 91, .4));
+    height: 60%;
+    right: -.5rem;
+    bottom: 0;
+    max-width: 250px;
+  }
+
+/* Finish helper classes */

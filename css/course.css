@@ -131,17 +131,12 @@
 
 /* finish course-info */
 
-
-
-
-
-
-
-
 .main_content{
     width: 78%;
     margin: 7rem auto;
     margin-bottom: 2.5rem;
+    display: flex;
+    grid-gap: 2.5rem;
 }
 
 .main_content--right{
@@ -335,5 +330,165 @@
 
 
     /* Accordion */
+
+    /* teacher details */
+
+    .teacher-details{
+        margin-top: 2rem;
+        padding: 3rem;
+        border-radius: 0.5rem;
+        box-shadow: 0 0 13px 1px rgba(70, 72, 77, 0.08);
+    }
+
+    .teacher-details__header{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .teacher-details__header-right{
+        display: flex;
+        align-items: center;
+    }
+
+    .techer-details__header-profile{
+        width: 8rem;
+        height: 8rem;
+        border-radius: 50%;
+        box-shadow: 0 0 13px 1px rgba(70, 72, 77, 0.3);
+    }
+
+    .teacher-details__header-profile_title{
+        display: flex;
+        flex-direction: column;
+        margin-right: 2rem;
+    }
+
+    .techer-details__header-link{
+        text-decoration-line: underline;
+    }
+
+    .techer-details__header-skill{
+        font-weight: bold;
+    }
+
+    .teacher-details__header-left{
+        font-size: 1.6rem;
+        background-color: var(--primary-color-green-light);
+        padding: 8px;
+        border-radius: .8rem;
+        color: var(--white-color-light);
+        display: flex;
+        align-items: center;
+    }
+
+    .teacher-details__header-title{
+        margin-right: .5rem;
+    }
+
+    .techer-details__footer{
+        margin-top: 1rem;
+        color: var(--primary-color-text-Dark);
+        font-size: 1.5rem;
+        
+    }
+
+    /* teacher details */
+
+    /* main_content--left */
+        .main_content--left{
+            width: 30%;
+        }
+
+    /* start sidebar styles*/
+
+        .courses-info{
+            top: 2rem;
+            position: sticky;
+        }
+
+        .courses-info__child{
+            border-radius: 0.5rem;
+            box-shadow: 0px 0px 10px -3px rgba(0, 0, 0, .3);
+            padding: 2.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .course-info__register{
+            text-align: center;
+            background-color: var(--primary-color-green-light);
+            padding: 1.5rem 1rem;
+            border-radius: 0.5rem;
+            color: var(--white-color-light);
+            box-shadow: 0 0 13px 1px rgba(70, 72, 77, 0.3);
+        }
+
+        .course-info__register-title{
+            font-size: 1.7rem;
+        }
+
+        .course-info__register-icon{
+            margin-left: .6rem;
+        }
+
+
+        .course-info__total{
+            text-align: center;
+        }
+
+        .course-info__total-top{
+            border: 1.5px solid var(--white-color-Dark);
+            border-radius: .5rem;
+            padding: 2.5rem 1rem;
+        }
+
+        .course-info__total-top-sale-count{
+            padding: .5rem 1rem;
+            background-color: var(--primary-color-green-Dark);
+            border-radius: .5rem;
+            color: white;
+        }
+
+        .course-info__total-sale-icon{
+            font-size: 2.8rem;
+            margin-left: .5rem;
+        }
+
+        .course-info__total-top-sale-text{
+            color: var(--primary-color-text-Dark);
+        }
+
+        .course-info__total-bottom{
+            display: flex;
+            justify-content: space-evenly;
+            margin-top: 2rem;
+        }
+
+        .course-info__total-comment,
+        .course-info__total-view{
+            position: relative;
+            display: flex;
+            align-items: center;
+            font-size: 1.8rem;
+        }
+
+        .course-info__total-comment::before{
+            content: "";
+            position: absolute;
+            height: 100%;
+            width: 1px;
+            background-color: var(--primary-color-green-Dark);
+            left: -3rem;
+        }
+
+        .course-info__total-bottom-comment-text,
+        .course-info__total-bottom-view-text{
+            margin-right: .5rem;
+        }
+
+    /* finish sidebar styles*/
+
+
+    /* main_content--left */
 
 /*  finish introduction */

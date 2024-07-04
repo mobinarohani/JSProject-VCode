@@ -486,6 +486,70 @@
             margin-right: .5rem;
         }
 
+
+        .course-info__header-short-url{
+            display: flex;
+            align-items: center;
+            color: var(--primary-color-text-Dark);
+        }
+
+        .course-info__header-short-url-icon{
+            font-size: 2rem;
+        }
+
+        .course-info__header-short-url-text{
+            font-size: 1.7rem;
+            margin-right: 1rem;
+        }
+
+        .course-info__header-url{
+            border: 1.5px solid var(--white-color-Dark);
+            border-radius: .5rem;
+            margin-top: 1rem;
+            display: block;
+            padding: .5rem;
+            text-align: center;
+            text-decoration-line: underline;
+        }
+
+        .course-info__topic-title{
+            display: block;
+            color: var(--primary-color-text-Dark);
+            font-size: 1.8rem;
+        }
+
+        .course-info__topic-text{
+            font-size: 1.5rem;
+            color: var(--primary-color-text-Dark);
+        }
+
+        .courses-info__course-title{
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            display: block;
+            color: var(--primary-color-text-Dark);
+        }
+
+        .courses-info__course-list-item{
+            margin: 1rem 0;
+        }
+
+        .courses-info__course-item-url{
+            display: flex;
+            align-items: center;
+            color: var(--primary-color-text-Dark);
+        }
+
+        .courses-info__course-item-cover{
+            width: 70px;
+            border-radius: .8rem;
+            margin-left: .8rem;
+        }
+
+        .courses-info__course-item-text{
+            font-size: 1.3rem;
+        }
+
     /* finish sidebar styles*/
 
 

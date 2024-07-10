@@ -1,0 +1,233 @@
+@import './variables.css';
+@import './fonts.css';
+@import './default.css';
+@import './top-bar.css';
+@import './Navbar.css';
+@import './footer.css';
+@import './pagination.css';
+@import './helper.css';
+@import './breadcrumb.css';
+@import './sidbarcoursebox.css';
+
+.main_content{
+    width: 78%;
+    margin: 7rem auto;
+    margin-bottom: 2.5rem;
+    display: flex;
+    grid-gap: 2.5rem;
+}
+
+.main_content--right {
+    width: 70%;
+}
+
+.main_content--left {
+    width: 30%;
+}
+
+
+/*  start Articles style */
+
+.article{
+    padding: 2.4rem;
+    border-radius: .5rem;
+    box-shadow: 0px 0px 10px -3px rgba(0, 0, 0, .3);
+}
+
+.article__title{
+    font-size: 2.6rem;
+    font-weight: bold;
+    color: var(--primary-color-text-Dark);
+    border-bottom: 2px solid #f3f3f3;
+    padding-bottom: 1.5rem;
+}
+
+.article__header{
+    display: flex;
+    align-items: center;
+    padding-top: 1.5rem;
+}
+
+.article-header__item{
+    margin-left: 2rem;
+}
+
+.article-header__icon{
+    font-size: 1.7rem;
+    color: var(--primary-color-green-Dark);
+}
+
+.article-header__text{
+    font-size: 1.2rem;
+    color: #8f8f8f;
+}
+
+.articleBaner{
+    margin-top: 4rem;
+    width: 100%;
+}
+
+.article__score{
+    display: flex;
+    align-items: center;
+    margin: 2rem;
+}
+
+.article__score-icon{
+    margin-left: -0.4rem;
+}
+
+.article__score-text{
+    margin-right: 2rem;
+    font-size: 1.7rem;
+    color: var(--primary-color-green-Dark);
+}
+
+.article-read{
+    background-color: #f2f2f2;
+    border-radius:3rem;
+    padding: 2.3rem;
+    margin: 3rem;
+}
+
+.article-read__title{
+    display: block;
+    color: var(--primary-color-green-light);
+    font-size: 1.5rem;
+    margin-bottom: .5rem;
+    font-weight: bold;
+}
+
+.article-read__link{
+    line-height: 2rem;
+    font-size: 1.5rem;
+    color: #4fa8a2;
+}
+
+.article-read__link:hover{
+    text-decoration: underline;
+}
+
+.article__seconadary-banner{
+    display: block;
+    margin: 0 auto;
+}
+
+.article-section{
+    margin: 5rem 0;
+}
+
+.article-section__title{
+    font-size: 2.4rem;
+    color: var(--primary-color-green-Dark);
+    line-height: 1.2rem;
+}
+
+.article-section__text{
+    margin: 2rem;
+}
+
+.article-section__img{
+    display: block;
+    margin: 0 auto;
+}
+
+/*  finish Articles style */
+
+/* start sidebar*/
+
+
+.courses-info__course-item-info{
+    display: flex;
+    flex-direction: column;
+}
+
+.course-info__course-item-cost{
+    width: 70px;
+    border-radius: .8rem;
+    margin-left: .8rem;
+    font-size: 1.1rem;
+    color: green;
+    font-weight: bold;
+}
+
+
+.courses-info__child{
+    overflow: hidden;
+}
+
+.courses-info__course-title{
+    position: relative;
+}
+
+.courses-info__course-title::before{
+    position: absolute;
+    content: "";
+    width: 22px;
+    height: 39px;
+    background-color: var(--primary-color-green-light);
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 12px;
+    right: -28px;
+    top: -8px;
+    transform: skewX(-12deg);
+}
+
+.sidebar-articles__list{
+    margin-top: 2rem;
+}
+
+.sidebar-articles__list-item{
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #eeeeee;
+    padding: .9rem 1.3rem .3rem 1rem;
+    transition: all 400ms ease;
+}
+
+.sidebar-articles__list-item:hover{
+    background-color:var(--white-color-light);
+    padding-right: 2rem;
+}
+
+.sidebar-articles__list-item:hover .sidebar-articles__icon{
+    color: green;
+}
+
+.sidebar-articles__icon{
+    font-size: 1.4rem;
+    color: var(--primary-color-text-Dark);
+    transition: all 400ms ease;
+}
+
+.sidebar-articles__link{
+    font-size: 1.3rem;
+    margin-right: .5rem;
+}
+
+.last-articles__list{
+    margin-top: 2rem;
+}
+
+.last-articles__item{
+    border-bottom: 1px solid #eeeeee;
+    padding: 1rem 0;
+}
+
+.last-articles__link{
+    font-size: 1.5rem;
+}
+
+/* finish sidebar */
+
+
+
+/* start helper class  */
+
+.paragraph{
+    font-size: 1.5rem;
+    line-height: 3rem;
+    color: var(--primary-color-text-Dark);
+}
+
+/* finish helper class  */

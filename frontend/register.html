@@ -114,31 +114,42 @@
 
     <section class="login-register">
         <div class="login">
-            <span class="login-title">ورود به حساب کاربری</span>
-            <span class="login-subtitle">خوشحالیم دوباره میبینیمت دوست عزیز</span>
+            <span class="login-title">ایجاد حساب کاربری جدید</span>
+            <span class="login-subtitle">به خانواده جریان فناوری خوش آمدید</span>
             <div class="login__new-member">
-                <span class="login__new-member-text">کاربر جدید هستید ؟</span>
-                <a href="./register.html" class="login__new-member-link">ثبت نام</a>
+                <span class="login__new-member-text">آیا حساب کاربری دارید ؟</span>
+                <a href="./login.html" class="login__new-member-link">ورود</a>
             </div>
             <div class="login__form">
                 <div class="login__form-div">
-                    <input type="text" class="login__form-input" placeholder="نام کاربری یا آدرس ایمیل">
+                  <input type="text" class="login__form-input" id="name" placeholder="نام و نام خانوادگی ">
+                  <i class="fa fa-user-circle login__form-icon"></i>
+                </div>
+                <div class="login__form-div">
+                    <input type="text" class="login__form-input" id="username" placeholder="نام کاربری ">
                     <i class="fa fa-user login__form-icon"></i>
                 </div>
                 <div class="login__form-div">
-                    <input type="password" class="login__form-input" placeholder="رمز عبور">
+                  <input type="email" class="login__form-input" id="email" placeholder=" آدرس ایمیل">
+                  <i class="fa fa-envelope login__form-icon"></i>
+                </div>
+                <div class="login__form-div">
+                  <input type="text" class="login__form-input" id="phone" placeholder="شماره تماس">
+                  <i class="fa fa-phone-square login__form-icon"></i>
+                </div>
+                <div class="login__form-div">
+                    <input type="password" class="login__form-input" id="password" placeholder="رمز عبور">
                     <i class="fa fa-unlock login__form-icon"></i>
                 </div>
-                <button class="login__from-btn">
-                    <span class="login__from-btn-text">ورود</span>
-                    <i class="fa fa-sign-in login__from-btn-icon" aria-hidden="true"></i>
+                <button class="login__from-btn" id="register-btn">
+                    <span class="login__from-btn-text">ثبت نام</span>
+                    <i class="fa fa-sign-in login__from-btn-icon"  aria-hidden="true"></i>
                 </button>
                 <div class="login__form-pas-foget">
                     <div class="login__form-pas-foget-div">
                         <input type="checkbox" class="login__form-pas-foget-checkbox" name="form-pas-foget" id="">
                         <label for="form-pas-foget"  class="login__form-pas-foget-text">مرا به خاطر داشته باش</label>
                     </div>
-                    <a href="#" class="login__form-pas-foget-link">رمز عبور را فراموش کرده اید ؟</a>
                 </div>
             </div>
             <div class="description">
@@ -251,5 +262,7 @@
     <!-- Finish Footer -->
     <script src="vendor/FontAwesome5/all.min.js"></script>
     <script src="vendor//SwiperSlider/swiper-bundle.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="./js/register.js" type="module"></script>
 </body>
 </html>

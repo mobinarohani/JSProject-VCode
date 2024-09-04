@@ -140,10 +140,10 @@
     display: flex;
     align-items: center;
     border: 2px solid var(--primary-color-green-light);
-    border-radius: 50%;
+    border-radius: .5rem;
     transition: all 400ms ease;
     color: var(--primary-color-text-Dark);
-    width: 4.3rem;
+    width: 15rem;
     height: 4.3rem;
     justify-content: center;
 }

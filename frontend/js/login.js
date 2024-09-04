@@ -1,4 +1,4 @@
-import { login } from "./funcs/auth.js";
+import { login , getMe} from "./funcs/auth.js";
 
 const loginBtn=document.querySelector('#login-btn')
 

@@ -16,10 +16,17 @@ const getFromLocalStorage=(key)=>{
 }
 
 const getToken=()=>{
-    return JSON.parse(localStorage.getItem('user')).token
+    const userInfo = JSON.parse(localStorage.getItem('user'))
+    return userInfo ? userInfo.token : null;
+}
+
+
+const isLogin=()=>{
+  const login = localStorage.getItem('user')
+  return login ? true:false;
 }
 
 
 
 
-export{ showSwal ,saveIntoLocalStorage , getFromLocalStorage , getToken}
+export{ showSwal ,saveIntoLocalStorage , getFromLocalStorage , getToken ,isLogin}

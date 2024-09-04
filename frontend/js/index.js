@@ -1,5 +1,6 @@
 const $=document;
 
+import { getAndShowAllCourses } from "./funcs/shared.js";
 
 const landingTitle=$.querySelector('.landing__title')
 
@@ -18,6 +19,8 @@ window.addEventListener('load',()=>{
     makeCounter(40,landingCoursescount)
     makeCounter(3320,landingMinutescount)
     makeCounter(3071,landingRegistercount)
+
+    getAndShowAllCourses()
 })
 
 function tyoewriter(text , index){

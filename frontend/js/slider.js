@@ -1,6 +1,6 @@
 const swiperslider=new Swiper('.swiper',{
     loop:true,
-    slidesPerView:'auto',
+    // slidesPerView:'auto',
     breakpoints: {
         576: {
             slidesPerView: 1
@@ -19,5 +19,5 @@ const swiperslider=new Swiper('.swiper',{
         el: ".swiper-pagination",
     },
     spaceBetween:40,
-    centeredSlides: true,
+    // centeredSlides: true,
 })

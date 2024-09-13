@@ -27,6 +27,9 @@ const isLogin=()=>{
 }
 
 
+const getUrlParams=(key)=>{
+  const urlParams=new URLSearchParams(window.location.search)
+  return urlParams.get(key).split('/')[2];
+}
 
-
-export{ showSwal ,saveIntoLocalStorage , getFromLocalStorage , getToken ,isLogin}
+export{ showSwal ,saveIntoLocalStorage , getFromLocalStorage , getToken ,isLogin , getUrlParams}

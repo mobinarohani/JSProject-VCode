@@ -1,5 +1,5 @@
 import { getMe } from "./auth.js";
-import { isLogin, getUrlParams } from "./utils.js";
+import { isLogin, getUrlParams, getUrlParamsWithSplit, getToken } from "./utils.js";
 
 // get class and return element
 function getClassAndReturnElement(className) {
@@ -56,13 +56,15 @@ const getAndShowAllCourses = async () => {
       "beforeend",
       `             <div class="course__item">
                       <div class="course-box">
-                        <a href="#">
+                        <a href="course.html?name=${item.shortName}">
                           <img src=http://127.0.0.1:4000/courses/covers/${
                             item.cover
                           } alt="Course img" class="course-box__img" />
                         </a>
                         <div class="course-box__main">
-                          <a href="#" class="course-box__title">${item.name}</a>
+                          <a href="course.html?name=${
+                            item.shortName
+                          }" class="course-box__title">${item.name}</a>
       
                           <div class="course-box__rating-teacher">
                             <div class="course-box__teacher">
@@ -306,7 +308,7 @@ const getAndShowArticles = async () => {
 };
 
 const getAndShowNavbarMenu = async () => {
-  const mainHeaderMenu = getIdAndReturnElement("main-header__menu");
+  const mainHeaderMenu = getClassAndReturnElement("main-header__menu");
   const res = await fetch("http://127.0.0.1:4000/v1/menus");
   const menus = await res.json();
 
@@ -339,7 +341,7 @@ const getAndShowNavbarMenu = async () => {
 };
 
 const getAndShowCategoryCourses = async () => {
-  const urlParam = getUrlParams("cat");
+  const urlParam = getUrlParamsWithSplit("cat");
 
   const res = await fetch(
     `http://127.0.0.1:4000/v1/courses/category/${urlParam}`
@@ -352,8 +354,6 @@ const getAndShowCategoryCourses = async () => {
 
 const templateCourses = (courses, showType, container) => {
   if (showType === "row") {
-    console.log(showType);
-    
     container.style.display = "flex";
     container.innerHTML = "";
     if (courses.length) {
@@ -432,7 +432,6 @@ const templateCourses = (courses, showType, container) => {
       );
     }
   } else {
-    console.log(showType);
     container.style.display = "block";
     container.innerHTML = "";
     if (courses.length) {
@@ -515,6 +514,58 @@ const templateCourses = (courses, showType, container) => {
   }
 };
 
+const coursesFiltering = (array, filterKey) => {
+  let outArray = [];
+
+  switch (filterKey) {
+    case "first": {
+      outArray = [...array].reverse();
+      break;
+    }
+    case "last": {
+      outArray = array;
+      break;
+    }
+    case "free": {
+      outArray = array.filter((course) => course.price === 0);
+      break;
+    }
+    case "money": {
+      outArray = array.filter((course) => course.price !== 0);
+      break;
+    }
+    case "score": {
+      outArray = array.sort(
+        (a, b) => b.courseAverageScore - a.courseAverageScore
+      );
+      break;
+    }
+    case "defualt": {
+      outArray = array;
+      break;
+    }
+    default: {
+      outArray = array;
+    }
+  }
+
+  return outArray;
+};
+
+const getCourseDetails = () => {
+  let coursesShortName = getUrlParams("name");
+
+  fetch(`http://127.0.0.1:4000/v1/courses/${coursesShortName}`,{   
+    headers:{
+      Authorization:`Bearer ${getToken()}`
+    }
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
+    });
+};
+
 export {
   showUserNmaeInNavbar,
   renderTopbarMenus,
@@ -525,4 +576,6 @@ export {
   getAndShowNavbarMenu,
   getAndShowCategoryCourses,
   templateCourses,
+  coursesFiltering,
+  getCourseDetails,
 };

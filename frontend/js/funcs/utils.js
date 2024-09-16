@@ -27,9 +27,21 @@ const isLogin=()=>{
 }
 
 
-const getUrlParams=(key)=>{
+const getUrlParamsWithSplit=(key)=>{
   const urlParams=new URLSearchParams(window.location.search)
   return urlParams.get(key).split('/')[2];
 }
 
-export{ showSwal ,saveIntoLocalStorage , getFromLocalStorage , getToken ,isLogin , getUrlParams}
+const getUrlParams=(key)=>{
+  const urlParams=new URLSearchParams(window.location.search)
+  return urlParams.get(key);
+}
+
+
+const searchInArray=(array,searchProperty,searchValue)=>{
+  let searchArray=array.filter(item=>item[searchProperty].includes(searchValue))
+
+  return searchArray
+}
+
+export{ showSwal ,saveIntoLocalStorage , getFromLocalStorage , getToken ,isLogin ,getUrlParamsWithSplit , getUrlParams , searchInArray}

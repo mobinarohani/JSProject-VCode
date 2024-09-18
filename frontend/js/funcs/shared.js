@@ -1,5 +1,10 @@
 import { getMe } from "./auth.js";
-import { isLogin, getUrlParams, getUrlParamsWithSplit, getToken } from "./utils.js";
+import {
+  isLogin,
+  getUrlParams,
+  getUrlParamsWithSplit,
+  getToken,
+} from "./utils.js";
 
 // get class and return element
 function getClassAndReturnElement(className) {
@@ -363,7 +368,7 @@ const templateCourses = (courses, showType, container) => {
           `
                             <div class="course__item">
                                   <div class="course-box">
-                                    <a href="#">
+                                    <a href="course.html?name=${item.shortName}">
                                       <img src=http://127.0.0.1:4000/courses/covers/${
                                         item.cover
                                       }  alt="Course img" class="course-box__img" />
@@ -555,15 +560,169 @@ const coursesFiltering = (array, filterKey) => {
 const getCourseDetails = () => {
   let coursesShortName = getUrlParams("name");
 
-  fetch(`http://127.0.0.1:4000/v1/courses/${coursesShortName}`,{   
-    headers:{
-      Authorization:`Bearer ${getToken()}`
-    }
+  let courseLinkInfo = getClassAndReturnElement("course-info__link");
+  let courseTitle = getClassAndReturnElement("course-info__title");
+  let courseDescription = getClassAndReturnElement("course-info__text");
+  let courseStatus = getClassAndReturnElement("boxes_right-item-subtitle");
+  let courseSupport = getClassAndReturnElement("boxes_right-item-support");
+  let courseLastUpdate = getClassAndReturnElement(
+    "boxes_right-item-last-update"
+  );
+  let courseTime = getClassAndReturnElement("boxes_right-item-time");
+  let courseRegisterInfo = getClassAndReturnElement(
+    "course-info__register-title"
+  );
+  let courseComments = getClassAndReturnElement(
+    "course-info__total-bottom-comment-text"
+  );
+  let courseStudents = getClassAndReturnElement(
+    "course-info__total-top-sale-count"
+  );
+  let courseSessionWrapper = getClassAndReturnElement("course-session-wrapper");
+
+  fetch(`http://127.0.0.1:4000/v1/courses/${coursesShortName}`, {
+    headers: {
+      Authorization: `Bearer ${getToken()}`,
+    },
   })
     .then((res) => res.json())
     .then((data) => {
       console.log(data);
+
+      courseLinkInfo.innerHTML = "آموزش " + data.categoryID.title;
+      courseTitle.innerHTML = data.name;
+      courseDescription.innerHTML = data.description;
+      courseStatus.innerHTML = data.isComplete ? "تکمیل شده" : "در حال برگزاری";
+      courseLastUpdate.innerHTML = data.updatedAt.slice(0, 10);
+      courseSupport.innerHTML = data.support;
+      courseRegisterInfo.insertAdjacentHTML(
+        "beforeend",
+        data.isUserRegisteredToThisCourse
+          ? "دانشجو دوره هستید"
+          : "ثبت نام در دوره"
+      );
+
+      let timeMin = 0;
+      let timesecond = 0;
+      let allTime = 0;
+      data.sessions.forEach((item) => {
+        timeMin += Number(item.time.slice(0, 2));
+        timesecond += Number(item.time.slice(3, 5));
+      });
+
+      if (timeMin > 60) {
+        allTime += Math.floor(timeMin / 60);
+      } else {
+        allTime += timeMin;
+      }
+
+      if (timesecond > 60) {
+        allTime += Math.floor(timesecond / 60);
+      } else {
+        allTime += String(":" + timesecond);
+      }
+
+      courseTime.innerHTML = allTime;
+
+      courseComments.innerHTML = `دیدگاه ${data.comments.length}`;
+      courseStudents.innerHTML = data.courseStudentsCount;
+
+      if (data.sessions.length) {
+        data.sessions.forEach((item, index) => {
+          courseSessionWrapper.insertAdjacentHTML(
+            "beforeend",
+            `
+            <div class="accordion-body introduction__accordion-body">
+                      <div class="introduction__accordion-right">
+                        <span class="introduction__accordion-count">${
+                          index + 1
+                        }</span>
+                        <i class="fab fa-youtube introduction__accordion-icon"></i>
+                        <a href="#" class="introduction__accordion-link">
+                          ${item.title}
+                        </a>
+                      </div>
+                      <div class="introduction__accordion-left">
+                        <span class="introduction__accordion-time">
+                        ${item.time}
+                        ${
+                          item.free
+                            ? '<i class="fa fa-lock" aria-hidden="true"></i>'
+                            : ""
+                        }
+  
+                        </span>
+                      </div>
+                    </div>
+            `
+          );
+        });
+      } else {
+        courseSessionWrapper.insertAdjacentHTML(
+          "beforeend",
+          `
+          <div class="accordion-body introduction__accordion-body">
+                    <div class="introduction__accordion-right">
+                      <span class="introduction__accordion-count">--</span>
+                      <i class="fab fa-youtube introduction__accordion-icon"></i>
+                      <a href="#" class="introduction__accordion-link">
+                        هنوز جلسه ای وجود ندارد
+                      </a>
+                    </div>
+                    <div class="introduction__accordion-left">
+                      <span class="introduction__accordion-time">
+                      00:00
+                      </span>
+                    </div>
+                  </div>
+          `
+        );
+      }
     });
+};
+
+const getAndShowRelatedCourse = async () => {
+  let coursesShortName = getUrlParams("name");
+
+  let coursesRelatedWrapper = getClassAndReturnElement(
+    "courses-info__course-list"
+  );
+
+  const res = await fetch(
+    `http://127.0.0.1:4000/v1/courses/related/${coursesShortName}`
+  );
+
+  const relatedCourse = await res.json();
+
+  if (relatedCourse.length) {
+    relatedCourse.forEach((item) => {
+      coursesRelatedWrapper.insertAdjacentHTML(
+        "beforeend",
+        `
+                      <li class="courses-info__course-list-item">
+                <a href="course.html?name=${item.shortName}" class="courses-info__course-item-url">
+                  <img src="http://127.0.0.1:4000/courses/covers/${item.cover}" alt="" class="courses-info__course-item-cover">
+                  <span class="courses-info__course-item-text">${item.name}</span>
+                </a>
+              </li>
+        `
+      );
+    });
+  } else {
+    coursesRelatedWrapper.insertAdjacentHTML(
+      "beforeend",
+      `
+                    <li class="courses-info__course-list-item">
+              <a href="" class="courses-info__course-item-url">
+                <img src="" alt="" class="courses-info__course-item-cover">
+                <span class="courses-info__course-item-text">دوره ای وجود ندارد</span>
+              </a>
+            </li>
+      `
+    );
+  }
+
+  return relatedCourse;
 };
 
 export {
@@ -578,4 +737,5 @@ export {
   templateCourses,
   coursesFiltering,
   getCourseDetails,
+  getAndShowRelatedCourse,
 };

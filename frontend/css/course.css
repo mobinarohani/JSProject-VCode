@@ -406,7 +406,7 @@
             height: 100%;
             width: 1px;
             background-color: var(--primary-color-green-Dark);
-            left: -3rem;
+            left: -1.5rem;
         }
 
         .course-info__total-bottom-comment-text,

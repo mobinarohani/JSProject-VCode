@@ -4,6 +4,7 @@ import {
   getUrlParams,
   getUrlParamsWithSplit,
   getToken,
+  showSwal,
 } from "./utils.js";
 
 // get class and return element
@@ -141,13 +142,13 @@ const getAndShowPopulareCouses = async () => {
       "beforeend",
       ` <div class="swiper-slide sw-slide">
     <div class="course-box">
-      <a href="#">
+      <a href="course.html?name=${item.shortName}">
         <img src=http://127.0.0.1:4000/courses/covers/${
           item.cover
         } alt="Course img" class="course-box__img" />
       </a>
       <div class="course-box__main">
-        <a href="#" class="course-box__title">${item.name}</a>
+        <a href="course.html?name=${item.shortName}" class="course-box__title">${item.name}</a>
 
         <div class="course-box__rating-teacher">
           <div class="course-box__teacher">
@@ -213,13 +214,13 @@ const getAndShowPresellCourses = async () => {
       `
        <div class="swiper-slide sw-slide">
                 <div class="course-box">
-                  <a href="#">
+                  <a href="course.html?name=${item.shortName}">
                     <img src=http://127.0.0.1:4000/courses/covers/${
                       item.cover
                     } alt="Course img" class="course-box__img" />
                   </a>
                   <div class="course-box__main">
-                    <a href="#" class="course-box__title">${item.name}</a>
+                    <a href="course.html?name=${item.shortName}" class="course-box__title">${item.name}</a>
 
                     <div class="course-box__rating-teacher">
                       <div class="course-box__teacher">
@@ -368,7 +369,9 @@ const templateCourses = (courses, showType, container) => {
           `
                             <div class="course__item">
                                   <div class="course-box">
-                                    <a href="course.html?name=${item.shortName}">
+                                    <a href="course.html?name=${
+                                      item.shortName
+                                    }">
                                       <img src=http://127.0.0.1:4000/courses/covers/${
                                         item.cover
                                       }  alt="Course img" class="course-box__img" />
@@ -580,6 +583,8 @@ const getCourseDetails = () => {
   );
   let courseSessionWrapper = getClassAndReturnElement("course-session-wrapper");
 
+  const commentsContentWrapper = getClassAndReturnElement("comments__content");
+
   fetch(`http://127.0.0.1:4000/v1/courses/${coursesShortName}`, {
     headers: {
       Authorization: `Bearer ${getToken()}`,
@@ -638,15 +643,26 @@ const getCourseDetails = () => {
                           index + 1
                         }</span>
                         <i class="fab fa-youtube introduction__accordion-icon"></i>
-                        <a href="#" class="introduction__accordion-link">
-                          ${item.title}
-                        </a>
+                        ${
+                          item.free || data.isUserRegisteredToThisCourse
+                            ? `
+                            <a href="./episode.html?name=${data.shortName}&id=${item._id}&register=${data.isUserRegisteredToThisCourse}" class="introduction__accordion-link">
+                              ${item.title}
+                            </a>
+                            `
+                            : `
+                            <span  class="introduction__accordion-link">
+                              ${item.title}
+                            </span>
+                            `
+                        }
+                      
                       </div>
                       <div class="introduction__accordion-left">
                         <span class="introduction__accordion-time">
                         ${item.time}
                         ${
-                          item.free
+                          !(item.free || data.isUserRegisteredToThisCourse)
                             ? '<i class="fa fa-lock" aria-hidden="true"></i>'
                             : ""
                         }
@@ -675,6 +691,84 @@ const getCourseDetails = () => {
                       </span>
                     </div>
                   </div>
+          `
+        );
+      }
+
+      // Show Course Comments
+      if (data.comments.lenght) {
+        data.comments.forEach((comment) => {
+          commentsContentWrapper.insertAdjacentHTML(
+            "beforeend",
+            `
+            <div class="comments__item">
+              <div class="comments__question">
+                  <div class="comments__question-header">
+                      <div class="comments__question-header-right">
+                          <span class="comments__question-name comment-name">${
+                            comment.creator.name
+                          }</span>
+                          <span class="comments__question-status comment-status">
+                          (${
+                            comment.creator.role === "USER" ? "دانشجو" : "مدرس"
+                          })
+                              </span>
+                          <span class="comments__question-date comment-date">${comment.createdAt.slice(
+                            0,
+                            10
+                          )}</span>
+                      </div>
+                      <div class="comments__question-header-left">
+                          <a class="comments__question-header-link comment-link" href="#">پاسخ</a>
+                      </div>
+                  </div>
+                  <div class="comments__question-text">
+                     
+                      <p class="comments__question-paragraph comment-paragraph">
+                        ${comment.body}
+                      </p>
+                  </div>
+              </div>
+              ${
+                comment.answerContent
+                  ? `
+                    <div class="comments__ansewr">
+                        <div class="comments__ansewr-header">
+                            <div class="comments__ansewr-header-right">
+                                <span class="comments__ansewr-name comment-name">
+                               ${comment.answerContent.creator.name}
+                                    </span>
+                                <span class="comments__ansewr-staus comment-status">
+                                  (${
+                                    comment.creator.role === "USER"
+                                      ? "دانشجو"
+                                      : "مدرس"
+                                  })
+                                </span>
+                                <span class="comments__ansewr-date comment-date">1401/04/21</span>
+                            </div>
+                            <div class="comments__ansewr-header-left">
+                                <a class="comments__ansewr-header-link comment-link" href="#">پاسخ</a>
+                            </div>
+                        </div>
+                        <div class="comments__ansewr-text">
+                            <p class="comments__ansewr-paragraph comment-paragraph">
+                              ${comment.answerContent.body}
+                            </p>
+                        </div>
+                    </div>
+                  `
+                  : ""
+              }
+            </div>
+        `
+          );
+        });
+      } else {
+        commentsContentWrapper.insertAdjacentHTML(
+          "beforeend",
+          `
+          <div class="alert alert-danger">کامنتی برای این دوره وجود ندارد</div>
           `
         );
       }
@@ -725,6 +819,133 @@ const getAndShowRelatedCourse = async () => {
   return relatedCourse;
 };
 
+const getSessionDetails = async () => {
+  let coursesShortName = getUrlParams("name");
+  let courseId = getUrlParams("id");
+  let Registered = getUrlParams("register");
+
+  let srcVideoElem = getClassAndReturnElement("episode-content__video");
+
+  let sessionList = getClassAndReturnElement("sidebar-topics__list");
+  const res = await fetch(
+    `http://127.0.0.1:4000/v1/courses/${coursesShortName}/${courseId}`,
+    {
+      headers: {
+        Authorization: `Bearer ${getToken()}`,
+      },
+    }
+  );
+
+  const sessionDetails = await res.json();
+
+  srcVideoElem.setAttribute(
+    "src",
+    `http://127.0.0.1:4000/courses/covers/${sessionDetails.session.video}`
+  );
+
+  if (sessionDetails.sessions.length) {
+    sessionDetails.sessions.forEach((item) => {
+      sessionList.insertAdjacentHTML(
+        "beforeend",
+        `
+        <li class="sidebar-topics__list-item">
+                    <div class="sidebar-topics__list-right">
+                      <i
+                        class="sidebar-topics__list-item-icon fa fa-play-circle"
+                      ></i>
+                      ${
+                        item.free || Registered
+                          ? `<a class="sidebar-topics__list-item-link" href="./episode.html?name=${coursesShortName}&id=${item._id}&rejister=${Rejistered}">${item.title}</a>`
+                          : `<span class="sidebar-topics__list-item-link">${item.title}</span>`
+                      }
+                      
+                    </div>
+                    <div class="sidebar-topics__list-left">
+                      <span class="sidebar-topics__list-item-time">
+                      ${item.time}
+                       ${
+                         !(item.free || Registered)
+                           ? '<i class="fa fa-lock" aria-hidden="true"></i>'
+                           : ""
+                       }
+                      </span>
+                    </div>
+                  </li>`
+      );
+    });
+  }
+
+  return sessionDetails;
+};
+
+const submitContactUsMsg = async () => {
+  const nameInputElem = getIdAndReturnElement("name");
+  const emailInputElem = getIdAndReturnElement("email");
+  const phoneInputElem = getIdAndReturnElement("phone");
+  const bodyInputElem = getIdAndReturnElement("body");
+
+  const contactMsg = {
+    name: nameInputElem.value.trim(),
+    email: emailInputElem.value.trim(),
+    phone: phoneInputElem.value.trim(),
+    body: bodyInputElem.value.trim(),
+  };
+
+  const res = await fetch("http://127.0.0.1:4000/v1/contact", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(contactMsg),
+  });
+
+  if (res.result === 201) {
+    showSwal(
+      " پیغام شما با موفقیت انجام شد",
+      "success",
+      "ورود به پنل",
+      (result) => {
+        location.href = "index.html";
+      }
+    );
+  } else {
+    showSwal(
+      "مشکلی در ارسال پیغام وجود دارد \n لطفا بعدا امتحان کنید",
+      "error",
+      "متوجه شدم",
+      () => {}
+    );
+  }
+};
+
+const newsLetterEmailObj = async () => {
+  const inputElem = getIdAndReturnElement("input__newLetter");
+
+  const newEmail = {
+    email: inputElem.value.trim(),
+  };
+
+  const res = await fetch("http://127.0.0.1:4000/v1/newsletters", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(newEmail),
+  });
+
+  if (res.ok) {
+    showSwal("ایمیل شما با موفقیت ثبت شد", "success", "متوجه شدم", (result) => {
+      location.href = "index.html";
+    });
+  } else {
+    showSwal(
+      "مشکلی در ثبت ایمیل وجود دارد \n لطفا بعدا امتحان کنید",
+      "error",
+      "متوجه شدم",
+      () => {}
+    );
+  }
+};
 export {
   showUserNmaeInNavbar,
   renderTopbarMenus,
@@ -738,4 +959,7 @@ export {
   coursesFiltering,
   getCourseDetails,
   getAndShowRelatedCourse,
+  getSessionDetails,
+  submitContactUsMsg,
+  newsLetterEmailObj,
 };

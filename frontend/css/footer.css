@@ -71,4 +71,42 @@
     color: var(--primary-color-text-Dark);
     font-weight: bold;
 }
+
+
+/* new letter */
+
+.footer__input-newLetter{
+    padding: 0 2rem;
+    color: var(--primary-color-text-Dark);
+    margin-top: 3rem;
+}
+
+.footer__input-newLetter > span{
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.form-input_wrapper{
+    display: flex;
+    justify-content: space-between;
+    padding: .3rem .3rem .3rem 1.5rem;
+}
+
+.form-input_email{
+    border: none;
+    outline: none;
+    width: 100%;
+}
+
+.form-input_submit{
+    background-color: var(--primary-color-text-Dark);
+    color: white;
+    border: none;
+    padding: .8rem 1rem;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 /* Finish Footer style */

@@ -8,7 +8,7 @@
 @import './helper.css';
 @import './breadcrumb.css';
 @import './sidbarcoursebox.css';
-
+@import "./comments.css";
 
 /* start course-info */
 
@@ -413,7 +413,7 @@
         .course-info__total-bottom-view-text{
             margin-right: .5rem;
         }
-
+    
 
         .course-info__header-short-url{
             display: flex;

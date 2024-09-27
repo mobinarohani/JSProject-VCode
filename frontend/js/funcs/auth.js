@@ -17,6 +17,7 @@ const register = () => {
     password: passwordInput.value.trim(),
     confirmPassword: passwordInput.value.trim(),
   };
+  
 
   fetch(`http://127.0.0.1:4000/v1/auth/register`, {
     method: "POST",
@@ -58,6 +59,7 @@ const login = () => {
     identifier: identifierInput.value.trim(),
     password: passwordInput.value.trim(),
   };
+  
 
   fetch(`http://127.0.0.1:4000/v1/auth/login`, {
     method: "POST",
@@ -67,23 +69,26 @@ const login = () => {
     body: JSON.stringify(userInfos),
   })
     .then((res) => {
-      if (res.status === 401) {
-        showSwal(
-          "کابری با این اطلاعات یافت نشد",
-          "error",
-          "تصحیح اطلاعات",
-          () => {}
-        );
-      } else if (res.status === 200) {
-        showSwal("با موفقیت وارد شدید", "success", "ورود به پنل", () => {
-          location.href = "index.html";
-        });
-      }
+      // if (res.status === 401) {
+      //   showSwal(
+      //     "کابری با این اطلاعات یافت نشد",
+      //     "error",
+      //     "تصحیح اطلاعات",
+      //     () => {}
+      //   );
+      // } else if (res.status === 200) {
+      //   showSwal("با موفقیت وارد شدید", "success", "ورود به پنل", () => {
+      //     location.href = "index.html";
+      //   });
+      // }
       return res.json();
     })
     .then((result) => {
       saveIntoLocalStorage("user", { token: result.accessToken });
     });
+
+ 
+    
 };
 
 const getMe =async () => {

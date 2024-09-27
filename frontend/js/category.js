@@ -4,7 +4,9 @@ import {
   coursesFiltering,
 } from "./funcs/shared.js";
 
-import { searchInArray } from "./funcs/utils.js";
+import { searchInArray ,  paginateItem, getUrlParams,addParamToUrl} from "./funcs/utils.js";
+
+window.addParamToUrl=addParamToUrl
 
 window.addEventListener("load", () => {
   getAndShowCategoryCourses().then((responseCources) => {
@@ -37,10 +39,10 @@ window.addEventListener("load", () => {
         item.classList.add("courses-top-bar__icon--active");
         if (String(item.classList).includes("row")) {
           showCourses = "row";
-          templateCourses(courses, showCourses, coursesContentContainer);
+          templateCourses([...coursePagination], showCourses, coursesContentContainer);
         } else {
           showCourses = "column";
-          templateCourses(courses, showCourses, coursesContentContainer);
+          templateCourses([...coursePagination], showCourses, coursesContentContainer);
         }
       });
     });
@@ -104,5 +106,12 @@ window.addEventListener("load", () => {
         );
       }
     });
+
+    // show pagination
+
+    let containerpagination=document.querySelector('.courses__pagination-list')
+    const currentPage=getUrlParams('page')
+    const coursePagination=paginateItem([...responseCources],3,currentPage,containerpagination)
+    templateCourses([...coursePagination], showCourses, coursesContentContainer);
   });
 });

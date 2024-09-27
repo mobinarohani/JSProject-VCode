@@ -12,6 +12,8 @@ const landingTitle = $.querySelector(".landing__title");
 const landingCoursescount = $.querySelector("#corses__count");
 const landingMinutescount = $.querySelector("#minutes__cont");
 const landingRegistercount = $.querySelector("#register__count");
+const globalSearchInput = $.querySelector('#global-search-input')
+const globalSearchBtn = $.querySelector('#global-search-btn')
 
 // typeWriter
 
@@ -28,6 +30,11 @@ window.addEventListener("load", () => {
   getAndShowPopulareCouses();
   getAndShowPresellCourses();
   getAndShowArticles()
+  
+  globalSearchBtn.addEventListener('click',()=>{
+    location.href=`search.html?value=${globalSearchInput.value}`
+  })
+
 });
 
 function tyoewriter(text, index) {

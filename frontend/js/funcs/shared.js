@@ -148,7 +148,9 @@ const getAndShowPopulareCouses = async () => {
         } alt="Course img" class="course-box__img" />
       </a>
       <div class="course-box__main">
-        <a href="course.html?name=${item.shortName}" class="course-box__title">${item.name}</a>
+        <a href="course.html?name=${
+          item.shortName
+        }" class="course-box__title">${item.name}</a>
 
         <div class="course-box__rating-teacher">
           <div class="course-box__teacher">
@@ -220,7 +222,9 @@ const getAndShowPresellCourses = async () => {
                     } alt="Course img" class="course-box__img" />
                   </a>
                   <div class="course-box__main">
-                    <a href="course.html?name=${item.shortName}" class="course-box__title">${item.name}</a>
+                    <a href="course.html?name=${
+                      item.shortName
+                    }" class="course-box__title">${item.name}</a>
 
                     <div class="course-box__rating-teacher">
                       <div class="course-box__teacher">
@@ -322,9 +326,9 @@ const getAndShowNavbarMenu = async () => {
     mainHeaderMenu.insertAdjacentHTML(
       "beforeend",
       `<li class="main-header__item">
-          <a href="category.html?cat=${item.href}" class="main-header__link">${
-        item.title
-      }
+          <a href="category.html?cat=${
+            item.href
+          }&page=1" class="main-header__link">${item.title}
           ${
             item.submenus.length !== 0
               ? `<i class="fas fa-angle-down main-header__link-icon"></i>
@@ -358,7 +362,7 @@ const getAndShowCategoryCourses = async () => {
   return param;
 };
 
-const templateCourses = (courses, showType, container) => {
+const templateCourses = (courses, showType='row', container) => {
   if (showType === "row") {
     container.style.display = "flex";
     container.innerHTML = "";
@@ -696,7 +700,7 @@ const getCourseDetails = () => {
       }
 
       // Show Course Comments
-      if (data.comments.lenght) {
+      if (Object.entries(data.comments).length) {
         data.comments.forEach((comment) => {
           commentsContentWrapper.insertAdjacentHTML(
             "beforeend",
@@ -946,6 +950,162 @@ const newsLetterEmailObj = async () => {
     );
   }
 };
+
+const globalSearch = async () => {
+  const urlParam = getUrlParams("value");
+  const coursesContainer = getIdAndReturnElement("coursesContainer");
+  const articlesContentContainer = getIdAndReturnElement(
+    "articles__content-container"
+  );
+
+  const res = await fetch(`http://127.0.0.1:4000/v1/search/${urlParam}`);
+  const rsultSearch = await res.json();
+
+  if (Object.entries(rsultSearch.allResultCourses).length) {
+    rsultSearch.allResultCourses.forEach((item) => {
+      coursesContainer.insertAdjacentHTML(
+        "beforeend",
+        `             <div class="course__item">
+                        <div class="course-box">
+                          <a href="course.html?name=${item.shortName}">
+                            <img src=http://127.0.0.1:4000/courses/covers/${
+                              item.cover
+                            } alt="Course img" class="course-box__img" />
+                          </a>
+                          <div class="course-box__main">
+                            <a href="course.html?name=${
+                              item.shortName
+                            }" class="course-box__title">${item.name}</a>
+        
+                            <div class="course-box__rating-teacher">
+                              <div class="course-box__teacher">
+                                <i class="fas fa-chalkboard-teacher course-box__teacher-icon"></i>
+                                <a href="#" class="course-box__teacher-link">${
+                                  item.creator
+                                }</a>
+                              </div>
+                              <div class="course-box__rating">
+                                  <img src="images/svgs/star_fill.svg" alt="rating" class="course-box__star">
+                                  <img src="images/svgs/star_fill.svg" alt="rating" class="course-box__star">
+                                  <img src="images/svgs/star_fill.svg" alt="rating" class="course-box__star">
+                                  <img src="images/svgs/star_fill.svg" alt="rating" class="course-box__star">
+                              </div>
+                            </div>
+        
+                            <div class="course-box__status">
+                              <div class="course-box__users">
+                                <i class="fas fa-users course-box__users-icon"></i>
+                                <span class="course-box__users-text">${
+                                  item.registers
+                                }</span>
+                              </div>
+                              <span class="course-box__price">${
+                                item.price === 0
+                                  ? "رایگان"
+                                  : item.price.toLocaleString()
+                              }</span>
+                            </div>
+                          </div>
+        
+                          <div class="course-box__footer">
+                            <a href="#" class="course-box__footer-link">
+                              مشاهده اطلاعات
+                              <i class="fas fa-arrow-left course-box__footer-icon"></i>
+                            </a>
+                          </div>
+        
+                        </div>
+                      </div>`
+      );
+    });
+  } else {
+    coursesContainer.style.display = "block";
+    coursesContainer.insertAdjacentHTML(
+      "beforeend",
+      `
+     <div class="alert alert-danger">هیچ دوره‌ای برای جستجوی شما وجود ندارد</div>
+      `
+    );
+  }
+
+  if (Object.entries(rsultSearch.allResultArticles).length) {
+    rsultSearch.allResultArticles.forEach((item) => {
+      articlesContentContainer.insertAdjacentHTML(
+        "beforeend",
+        `            <div class="articles__content-item">
+            <div class="article-card">
+              <div class="article-card__header">
+                <a href="#" class="article-card__link-img">
+                  <img src=http://127.0.0.1:4000/courses/covers/${item.cover} alt="Article Cover" />
+                </a>
+              </div>
+              <div class="article-card__content">
+                <a href="#" class="article-card__link">
+                 ${item.title}
+                </a>
+                <p class="article-card__text">
+                  ${item.description}
+                </p>
+                <a href="#" class="article-card__btn">بیشتر بخوانید</a>
+              </div>
+            </div>
+          </div>`
+      );
+    });
+  } else {
+    console.log(Object.entries(rsultSearch.allResultArticles).length);
+    articlesContentContainer.insertAdjacentHTML(
+      "beforeend",
+      `
+         <div class="alert alert-danger"  style="width: 100%">هیچ مقاله‌ای برای جستجوی شما وجود ندارد</div>
+      `
+    );
+  }
+  return rsultSearch;
+};
+
+const submitComment = async () => {
+  const commentScoreInput = getClassAndReturnElement("comments__score-input");
+  const commentTextInput = getClassAndReturnElement(
+    "comments__score-input-respond"
+  );
+
+  let score = 5;
+
+  commentScoreInput.addEventListener(
+    "change",
+    () => (score = commentScoreInput.value)
+  );
+
+  const newComment = {
+    body: commentTextInput.value.trim(),
+    courseShortName: getUrlParams("name"),
+    score,
+  };
+
+  const res = await fetch("http://127.0.0.1:4000/v1/comments", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${getToken()}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(newComment),
+  });
+  console.log(res);
+
+  if (res.ok) {
+    console.log("ok");
+  }
+};
+
+const getAllCourses = async () => {
+  const res = await fetch("http://127.0.0.1:4000/v1/courses");
+
+  const allCourses = await res.json();
+
+  return allCourses
+};
+
 export {
   showUserNmaeInNavbar,
   renderTopbarMenus,
@@ -962,4 +1122,7 @@ export {
   getSessionDetails,
   submitContactUsMsg,
   newsLetterEmailObj,
+  globalSearch,
+  submitComment,
+  getAllCourses,
 };

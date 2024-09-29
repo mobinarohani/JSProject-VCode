@@ -85,6 +85,8 @@ const login = () => {
     })
     .then((result) => {
       saveIntoLocalStorage("user", { token: result.accessToken });
+      console.log(result.accessToken);
+      
     });
 
  
